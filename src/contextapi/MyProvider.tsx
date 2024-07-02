@@ -1,13 +1,45 @@
-// MyProvider.tsx
 import React, { createContext, useState, ReactNode, useContext } from 'react';
 
-// Define types for your state
 interface State {
   user: { name: string; email: string } | null;
   theme: string;
 }
 
-// Define type for context
+interface StikerItem {
+  name: string;
+  itemLeftMargin: string;
+  itemTopMargin: string;
+  itemRightMargin: string;
+  itemBottomMargin: string;
+  disableSelect: boolean;
+}
+
+interface ImageItem {
+  itemWidth: string;
+  itemHeight: string;
+  itemLeftMargin: string;
+  itemTopMargin: string;
+  itemRightMargin: string;
+  itemBottomMargin: string;
+  rotated: string;
+  mask: string;
+}
+
+interface TextItem {
+  text: string;
+  itemLeftMargin: string;
+  itemTopMargin: string;
+  itemRightMargin: string;
+  itemBottomMargin: string;
+  rotated: string;
+  fontUrl: string;
+  textColor: string;
+  textSize: string;
+  textAlignment: string;
+  fontID: string;
+  letterSpacing: string;
+}
+
 interface ContextType {
   state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
@@ -16,9 +48,14 @@ interface ContextType {
   handleSignIn: () => void;
   handleSignUp: () => void;
   handleSignOut: () => void;
+  textsitems: TextItem[];
+  setTextsitems: React.Dispatch<React.SetStateAction<TextItem[]>>;
+  stickersitems: StikerItem[];
+  setStickersitems: React.Dispatch<React.SetStateAction<StikerItem[]>>;
+  Imagesitems: ImageItem[];
+  setImagesitems: React.Dispatch<React.SetStateAction<ImageItem[]>>;
 }
 
-// Create context with initial value
 const MyContext = createContext<ContextType | undefined>(undefined);
 
 export const useMyContext = (): ContextType => {
@@ -56,8 +93,69 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     localStorage.removeItem('isAuthenticated');
   };
 
+  // Initialize state for textsitems with correct Item type
+
+  const [textsitems, setTextsitems] = useState<TextItem[]>([
+    {
+      text: '',
+      itemLeftMargin: '',
+      itemTopMargin: '',
+      itemRightMargin: '',
+      itemBottomMargin: '',
+      rotated: '',
+      textAlignment: '',
+      fontID: '',
+      fontUrl: '',
+      textColor: '',
+      textSize: '',
+      letterSpacing: '',
+    },
+  ]);
+
+  // Initialize state for stickersitems with correct Item type
+  const [stickersitems, setStickersitems] = useState<StikerItem[]>([
+    {
+      name: '',
+      itemLeftMargin: '',
+      itemTopMargin: '',
+      itemRightMargin: '',
+      itemBottomMargin: '',
+      disableSelect: false,
+    },
+  ]);
+
+  // Initialize state for Imagesitems with correct Item type
+  const [Imagesitems, setImagesitems] = useState<ImageItem[]>([
+    {
+      itemWidth: '',
+      itemHeight: '',
+      itemLeftMargin: '',
+      itemTopMargin: '',
+      itemRightMargin: '',
+      itemBottomMargin: '',
+      rotated: '',
+      mask: '',
+    },
+  ]);
+
   return (
-    <MyContext.Provider value={{ state, setState, isAuthenticated, setIsAuthenticated, handleSignIn, handleSignUp, handleSignOut }}>
+    <MyContext.Provider
+      value={{
+        state,
+        setState,
+        isAuthenticated,
+        setIsAuthenticated,
+        handleSignIn,
+        handleSignUp,
+        handleSignOut,
+        textsitems,
+        setTextsitems,
+        stickersitems,
+        setStickersitems,
+        Imagesitems,
+        setImagesitems,
+      }}
+    >
       {children}
     </MyContext.Provider>
   );
