@@ -1,3 +1,4 @@
+import axios, { Axios } from 'axios';
 import React, { createContext, useState, ReactNode, useContext } from 'react';
 
 interface State {
@@ -40,6 +41,16 @@ interface TextItem {
   letterSpacing: string;
 }
 
+interface DetailedCategory {
+  id: number;
+  name: string;
+}
+
+interface Categorid {
+  id: number;
+  name: string;
+}
+
 interface ContextType {
   state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
@@ -54,6 +65,13 @@ interface ContextType {
   setStickersitems: React.Dispatch<React.SetStateAction<StikerItem[]>>;
   Imagesitems: ImageItem[];
   setImagesitems: React.Dispatch<React.SetStateAction<ImageItem[]>>;
+  instance: Axios;
+  detailedCategory: DetailedCategory | null;
+  setDetailedCategory: React.Dispatch<
+    React.SetStateAction<DetailedCategory | null>
+  >;
+  Categoryid: Categorid | null;
+  setCategoryid: React.Dispatch<React.SetStateAction<Categorid | null>>;
 }
 
 const MyContext = createContext<ContextType | undefined>(undefined);
@@ -72,6 +90,19 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     user: null,
     theme: 'light',
   });
+
+  const instance = axios.create({
+    baseURL: 'https://collage-maker.trippleapps.com',
+    timeout: 1000,
+    headers: {
+      'Content-Type': 'application/json',
+      // Add other headers if needed
+    },
+  });
+
+  const [detailedCategory, setDetailedCategory] =
+    useState<DetailedCategory | null>(null);
+  const [Categoryid, setCategoryid] = useState<Categorid | null>(null);
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     const authState = localStorage.getItem('isAuthenticated');
@@ -93,8 +124,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     localStorage.removeItem('isAuthenticated');
   };
 
-  // Initialize state for textsitems with correct Item type
-
   const [textsitems, setTextsitems] = useState<TextItem[]>([
     {
       text: '',
@@ -112,7 +141,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     },
   ]);
 
-  // Initialize state for stickersitems with correct Item type
   const [stickersitems, setStickersitems] = useState<StikerItem[]>([
     {
       name: '',
@@ -124,7 +152,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     },
   ]);
 
-  // Initialize state for Imagesitems with correct Item type
   const [Imagesitems, setImagesitems] = useState<ImageItem[]>([
     {
       itemWidth: '',
@@ -142,6 +169,11 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     <MyContext.Provider
       value={{
         state,
+        Categoryid,
+        setCategoryid,
+        detailedCategory,
+        setDetailedCategory,
+        instance,
         setState,
         isAuthenticated,
         setIsAuthenticated,
