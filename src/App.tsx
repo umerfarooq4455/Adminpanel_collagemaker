@@ -8,6 +8,7 @@ import CategoriesAdd from './pages/Dashboard/CategoriesAdd';
 import './index.css';
 import { useMyContext } from './contextapi/MyProvider';
 import Templatesmain from './pages/Templates/Templatesmain';
+import Templatedlistmain from './pages/Templatelist/Templatedlistmain';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -44,6 +45,10 @@ function App() {
                 <Routes>
                   <Route index element={<CategoriesAdd />} />
                   <Route path="/templates" element={<Templatesmain />} />
+                  <Route
+                    path="/templatedlist"
+                    element={<Templatedlistmain />}
+                  />
                 </Routes>
               </DefaultLayout>
             ) : (

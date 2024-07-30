@@ -28,7 +28,7 @@ const StickerItems: React.FC = () => {
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number,
-    field: keyof Item,
+    field: keyof Item
   ) => {
     const newItems = [...stickersitems];
     if (field === 'disableSelect') {
@@ -59,13 +59,13 @@ const StickerItems: React.FC = () => {
   };
 
   return (
-    <div className="space-y-2">
-      <div className="rounded-[10px] border border-[#B8BAC7] border-gray-300 dark:border-meta-4 dark:bg-meta-4 bg-white  px-5 font-dm text-[16px] font-semibold shadow-sm shadow-[#003EFF1A] dark:text-[#fff]">
+    <div className="space-y-2 ">
+      <div className="rounded-[10px]   dark:border-meta-4 dark:bg-meta-4 bg-[#F4F5F6] font-bold px-5 font-dm text-[16px]  dark:text-[#fff]">
         <div
-          className="flex h-[45px] cursor-pointer items-center justify-between"
+          className="flex h-[50px]  cursor-pointer items-center justify-between"
           onClick={() => toggleAccordion(0)}
         >
-          <span className="text-[16px] font-semibold text-[#1B254B] dark:text-[#fff]">
+          <span className=" md:text-[17.5px]  font-semibold text-black dark:text-white">
             Sticker Items
           </span>
           <svg
@@ -92,10 +92,10 @@ const StickerItems: React.FC = () => {
             {stickersitems.map((item, index) => (
               <div
                 key={index}
-                className="rounded-[10px] border border-[#B8BAC7] border-gray-300 bg-white dark:border-strokedark dark:bg-boxdark px-5 font-dm text-[16px] font-semibold shadow-sm shadow-[#003EFF1A] dark:text-[#fff] mb-4"
+                className="rounded-[10px]  bg-white dark:border-strokedark dark:bg-boxdark px-5 font-dm text-[16px] font-semibold  dark:text-[#fff] mb-4"
               >
                 <div
-                  className="flex h-[45px] cursor-pointer items-center justify-between"
+                  className="flex h-[48px] cursor-pointer items-center justify-between"
                   onClick={() => toggleActiveItems(index)}
                 >
                   <span className="text-[16px] font-semibold text-[#1B254B] dark:text-[#fff]">
@@ -121,7 +121,7 @@ const StickerItems: React.FC = () => {
                 </div>
 
                 {activeItems === index && (
-                  <div className="mb-7">
+                  <div className="pb-4">
                     <div className="flex flex-wrap -mx-2 md:mt-4">
                       <div className="w-full sm:w-1/3 px-2">
                         <label
@@ -132,7 +132,7 @@ const StickerItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full  resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full  resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="text"
                             id={`name${index}`}
                             placeholder="name"
@@ -152,7 +152,7 @@ const StickerItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemLeftMargin${index}`}
                             placeholder="item Left Margin"
@@ -172,7 +172,7 @@ const StickerItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemTopMargin${index}`}
                             placeholder="Item Top Margin"
@@ -194,7 +194,7 @@ const StickerItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemRightMargin${index}`}
                             placeholder="Item Right Margin"
@@ -214,7 +214,7 @@ const StickerItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemBottomMargin${index}`}
                             placeholder="Item Bottom Margin"
@@ -247,15 +247,9 @@ const StickerItems: React.FC = () => {
                           </label>
                         </div>
                       </div>
-                      <div className="w-full sm:w-1/3 px-2 mt-3">
-                        <label
-                          className="block mb-2 text-sm font-bold text-black dark:text-white"
-                          htmlFor={`file${index}`}
-                        >
-                          Delete Item
-                        </label>
+                      <div className="w-full flex justify-end items-end mt-4">
                         <button
-                          className="rounded bg-red-500 text-white px-4 py-2"
+                          className="rounded-[10px]  bg-red-500 text-white px-4 py-2 mt-[3px]"
                           onClick={() => deleteItem(index)}
                         >
                           Delete
@@ -269,7 +263,7 @@ const StickerItems: React.FC = () => {
             <div className="flex py-4">
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-[#4623E9] to-[#EAABF0] py-2 px-6 text-center font-medium text-white hover:bg-opacity-90"
+                className="inline-flex items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0] py-2 px-6 text-center font-medium text-white hover:bg-opacity-90"
                 onClick={addItem}
               >
                 Add Image Item

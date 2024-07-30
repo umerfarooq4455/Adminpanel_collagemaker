@@ -19,8 +19,7 @@ interface Item {
 const TextItems: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeItems, setActiveItems] = useState<number | null>(null);
-  const {textsitems, setTextsitems } = useMyContext();
-
+  const { textsitems, setTextsitems } = useMyContext();
 
   console.log('Text Items', textsitems);
 
@@ -60,7 +59,7 @@ const TextItems: React.FC = () => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
-    field: keyof Item,
+    field: keyof Item
   ) => {
     const { value } = e.target;
     const newItems = [...textsitems];
@@ -70,12 +69,12 @@ const TextItems: React.FC = () => {
 
   return (
     <div className="space-y-2">
-      <div className="rounded-[10px] border border-[#B8BAC7] border-gray-300 dark:border-meta-4 dark:bg-meta-4 bg-white px-5 font-dm text-[16px] font-semibold shadow-sm shadow-[#003EFF1A] dark:text-[#fff]">
+      <div className="rounded-[10px]   dark:border-meta-4 dark:bg-meta-4 bg-[#F4F5F6] px-5 font-dm text-[16px] font-semibold  dark:text-[#fff]">
         <div
-          className="flex h-[45px] cursor-pointer items-center justify-between"
+          className="flex h-[50px] cursor-pointer items-center justify-between"
           onClick={() => toggleAccordion(0)}
         >
-          <span className="text-[16px] font-semibold text-[#1B254B] dark:text-[#fff]">
+          <span className=" md:text-[17.5px]  font-semibold text-black dark:text-white">
             Text Items
           </span>
           <svg
@@ -102,13 +101,13 @@ const TextItems: React.FC = () => {
             {textsitems.map((item, index) => (
               <div
                 key={index}
-                className="rounded-[10px] border border-[#B8BAC7] border-gray-300 bg-white dark:border-strokedark dark:bg-boxdark px-5 font-dm text-[16px] font-semibold shadow-sm shadow-[#003EFF1A] dark:text-[#fff] mb-4"
+                className="rounded-[10px] bg-[#fff]  dark:border-strokedark dark:bg-boxdark px-5 font-dm text-[16px] font-bold   dark:text-[#fff] mb-4"
               >
                 <div
-                  className="flex h-[45px] cursor-pointer items-center justify-between"
+                  className="flex h-[48px] cursor-pointer items-center justify-between"
                   onClick={() => toggleActiveItems(index)}
                 >
-                  <span className="text-[16px] font-semibold text-[#1B254B] dark:text-[#fff]">
+                  <span className="text-[16px] font-bold text-[#1B254B] dark:text-[#fff]">
                     Text Item {index + 1}
                   </span>
                   <svg
@@ -131,7 +130,7 @@ const TextItems: React.FC = () => {
                 </div>
 
                 {activeItems === index && (
-                  <div className="mb-7">
+                  <div className="pb-4">
                     <div className="flex flex-wrap -mx-2 md:mt-4">
                       <div className="w-full sm:w-1/3 px-2">
                         <label
@@ -142,7 +141,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="text"
                             id={`text${index}`}
                             placeholder="Text"
@@ -162,7 +161,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemLeftMargin${index}`}
                             placeholder="Item Left Margin"
@@ -182,7 +181,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemTopMargin${index}`}
                             placeholder="Item Top Margin"
@@ -204,7 +203,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemRightMargin${index}`}
                             placeholder="Item Right Margin"
@@ -224,7 +223,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`itemBottomMargin${index}`}
                             placeholder="Item Bottom Margin"
@@ -244,7 +243,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="number"
                             id={`rotated${index}`}
                             placeholder="Rotated"
@@ -266,7 +265,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="url"
                             id={`fontUrl${index}`}
                             placeholder="Font Url"
@@ -286,7 +285,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="text"
                             id={`textColor${index}`}
                             placeholder="Text Color"
@@ -306,7 +305,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="text"
                             id={`textSize${index}`}
                             placeholder="Text Size"
@@ -328,7 +327,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="text"
                             id={`textAlignment${index}`}
                             placeholder="Text Alignment"
@@ -348,7 +347,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="text"
                             id={`fontID${index}`}
                             placeholder="Font ID"
@@ -368,7 +367,7 @@ const TextItems: React.FC = () => {
                         </label>
                         <div className="relative">
                           <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
+                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
                             type="text"
                             id={`letterSpacing${index}`}
                             placeholder=" Letter Spacing"
@@ -380,21 +379,13 @@ const TextItems: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-wrap -mx-2 md:mt-4">
-                      <div className="w-full sm:w-1/3 px-2">
-                        <label
-                          className="block mb-2 text-sm font-bold text-black dark:text-white"
-                          htmlFor={`file${index}`}
-                        >
-                          Delete Item
-                        </label>
-                        <button
-                          className="rounded bg-red-500 text-white px-4 py-2"
-                          onClick={() => deleteItem(index)}
-                        >
-                          Delete
-                        </button>
-                      </div>
+                    <div className="w-full flex justify-end items-end mt-4">
+                      <button
+                        className="rounded-[10px]  bg-red-500 text-white px-4 py-2 mt-[3px]"
+                        onClick={() => deleteItem(index)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 )}
@@ -403,7 +394,7 @@ const TextItems: React.FC = () => {
             <div className="flex py-4">
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-[#4623E9] to-[#EAABF0] py-2 px-6 text-center font-medium text-white hover:bg-opacity-90"
+                className="inline-flex items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0] py-2 px-6 text-center font-medium text-white hover:bg-opacity-90"
                 onClick={addItem}
               >
                 Add Text Items

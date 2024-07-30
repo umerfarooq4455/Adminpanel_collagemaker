@@ -98,12 +98,12 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
       lang: option.value,
       langLabel: option.label,
       title: '',
-    })),
+    }))
   );
 
   const handleInputChange = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newInputs = [...inputs];
     newInputs[index].title = event.target.value;
@@ -120,14 +120,11 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
       category_order: selectedOption,
       is_featured: isFeatured ? 1 : 0,
       is_active: isActive ? 1 : 0,
-      ...options.reduce(
-        (acc, option) => {
-          const input = inputs.find((input) => input.lang === option.value);
-          acc[option.value] = input ? input.title : '';
-          return acc;
-        },
-        {} as Record<string, string>,
-      ),
+      ...options.reduce((acc, option) => {
+        const input = inputs.find((input) => input.lang === option.value);
+        acc[option.value] = input ? input.title : '';
+        return acc;
+      }, {} as Record<string, string>),
     };
 
     // Wrap the body object
@@ -224,7 +221,9 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
                   readOnly
                 />
                 <svg
-                  className={`w-4 h-4 transition-transform duration-200 transform-gpu ${isorder ? 'rotate-0' : 'rotate-90'}`}
+                  className={`w-4 h-4 transition-transform duration-200 transform-gpu ${
+                    isorder ? 'rotate-0' : 'rotate-90'
+                  }`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

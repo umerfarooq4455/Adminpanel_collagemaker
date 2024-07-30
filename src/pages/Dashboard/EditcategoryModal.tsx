@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ukflag from './falgicon/united-kingdom.png';
 import German from './falgicon/circle.png';
 import china from './falgicon/china.png';
@@ -35,13 +35,16 @@ const EditcategoryModal: React.FC<AddCategoryModalProps> = ({
   onClose,
 }) => {
   if (!isOpen) return null;
+
   const { instance, Categoryid, detailedCategory } = useMyContext();
 
+  // Initialize state
   const [isorder, setIsorder] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
-  const ordervalue = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false); // Change from string to boolean
   const [isFeatured, setIsFeatured] = useState(false);
+
+  // Update state when detailedCategory changes
 
   const toggleDropdown = () => setIsorder(!isorder);
   const handleOptionClick = (option: string) => {
@@ -49,6 +52,7 @@ const EditcategoryModal: React.FC<AddCategoryModalProps> = ({
     setIsorder(false);
   };
 
+  const ordervalue = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   const options = [
     { value: 'en', label: <img src={ukflag} width="24" alt="UK Flag" /> },
     { value: 'de', label: <img src={German} width="24" alt="German Flag" /> },
@@ -98,12 +102,26 @@ const EditcategoryModal: React.FC<AddCategoryModalProps> = ({
       lang: option.value,
       langLabel: option.label,
       title: '',
-    })),
+    }))
   );
+
+  useEffect(() => {
+    if (detailedCategory) {
+      setIsActive(detailedCategory.is_active === '1');
+      setIsFeatured(detailedCategory.is_featured === '1');
+      setSelectedOption(detailedCategory.category_order || '');
+      setInputs((prevInputs) =>
+        prevInputs.map((input) => ({
+          ...input,
+          title: detailedCategory[input.lang] || '',
+        }))
+      );
+    }
+  }, [detailedCategory]);
 
   const handleInputChange = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newInputs = [...inputs];
     newInputs[index].title = event.target.value;
@@ -115,23 +133,19 @@ const EditcategoryModal: React.FC<AddCategoryModalProps> = ({
       toast.error('The first English language field must be filled.');
       return;
     }
-    // Create the body object with static and dynamic fields
+
     const body = {
       category_order: selectedOption,
       is_featured: isFeatured ? 1 : 0,
       is_active: isActive ? 1 : 0,
       cat_id: Categoryid,
-      ...options.reduce(
-        (acc, option) => {
-          const input = inputs.find((input) => input.lang === option.value);
-          acc[option.value] = input ? input.title : '';
-          return acc;
-        },
-        {} as Record<string, string>,
-      ),
+      ...options.reduce((acc, option) => {
+        const input = inputs.find((input) => input.lang === option.value);
+        acc[option.value] = input ? input.title : '';
+        return acc;
+      }, {} as Record<string, string>),
     };
 
-    // Wrap the body object
     const payload = { body };
 
     try {
@@ -147,13 +161,12 @@ const EditcategoryModal: React.FC<AddCategoryModalProps> = ({
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-
       <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-30 flex ml-2">
         <div className="relative py-4 px-2 bg-white dark:bg-boxdark w-full max-w-md m-auto flex-col flex rounded-lg">
           <div className="flex justify-between px-2 mb-3">
             <div className="flex items-center">
               <h1 className="text-[16px] text-[#000] dark:text-white font-bold mb-4">
-                Add New Category
+                Edit Category
               </h1>
             </div>
             <div>
@@ -208,52 +221,60 @@ const EditcategoryModal: React.FC<AddCategoryModalProps> = ({
               </label>
             </div>
           </div>
-          <div className="w-full mt-3 mb-3 px-2">
-            <label className="block mb-2 text-sm font-bold text-black dark:text-white">
-              Category Order
-            </label>
-            <div className="relative">
-              <div
-                className="w-full cursor-pointer resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] placeholder-gray-500 dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-white flex items-center justify-between"
-                onClick={toggleDropdown}
-              >
-                <input
-                  className="w-full bg-transparent outline-none"
-                  type="text"
-                  placeholder="Select an option"
-                  value={selectedOption}
-                  readOnly
-                />
-                <svg
-                  className={`w-4 h-4 transition-transform duration-200 transform-gpu ${isorder ? 'rotate-0' : 'rotate-90'}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+
+          <div className=" mb-4">
+            <div className="w-full mt-3 mb-3 px-2">
+              <label className="block mb-2 text-sm font-bold text-black dark:text-white">
+                Category Order
+              </label>
+              {/* {isorder && ( */}
+              <div className="relative">
+                <div
+                  className="w-full cursor-pointer resize-none rounded-[10px] border border-[#B8BAC7] bg-white p-2.5 text-[16px] font-normal text-[#1B254B] placeholder-gray-500 dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-white flex items-center justify-between"
+                  onClick={toggleDropdown}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
+                  <input
+                    className="w-full bg-transparent outline-none"
+                    type="text"
+                    placeholder="Select an option"
+                    value={selectedOption}
+                    readOnly
+                  />
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 transform-gpu ${
+                      isorder ? 'rotate-0' : 'rotate-90'
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </div>
+                {isorder && (
+                  <ul className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg dark:bg-meta-4">
+                    {ordervalue.map((option) => (
+                      <li
+                        key={option}
+                        className="cursor-pointer px-4 py-2 text-[#1B254B] hover:bg-gray-200 hover:bg-gray dark:text-white dark:hover:bg-[#614cbb]"
+                        onClick={() => handleOptionClick(option)}
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              {isorder && (
-                <ul className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg dark:bg-meta-4">
-                  {ordervalue.map((option, index) => (
-                    <li
-                      key={index}
-                      className="cursor-pointer px-4 py-2 text-[#1B254B] hover:bg-gray-200 hover:bg-gray dark:text-white dark:hover:bg-[#614cbb]"
-                      onClick={() => handleOptionClick(option)}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              {/* )} */}
             </div>
           </div>
+
           <div className="flex flex-col px-2">
             <div className="flex items-center justify-between">
               <h1 className="text-[14px] text-[#000] dark:text-white font-bold">

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import AddCategoryModal from './AddCategoryModal';
-import EditcategoryModal from './EditcategoryModal';
-import { useMyContext } from '../../contextapi/MyProvider';
 import toast, { Toaster } from 'react-hot-toast';
+import { useMyContext } from '../../contextapi/MyProvider';
+import AddCategoryModal from '../Dashboard/AddCategoryModal';
+import EditcategoryModal from '../Dashboard/EditcategoryModal';
+import { NavLink } from 'react-router-dom';
 
-const CategoriesAdd: React.FC = () => {
-  const { instance, setDetailedCategory, setCategoryid } =
-    useMyContext();
+const Templatedlistmain: React.FC = () => {
+  const { instance, setDetailedCategory, setCategoryid } = useMyContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [categories, setCategories] = useState<any | null>([]);
@@ -74,14 +74,12 @@ const CategoriesAdd: React.FC = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="mb-3 mt-8">
-        <AddCategoryModal isOpen={isModalOpen} onClose={closeModal} />
-        <button
-          type="button"
-          onClick={openModal}
+        <NavLink
           className="inline-flex items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0]  py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
+          to="/templates"
         >
           Add Categories
-        </button>
+        </NavLink>
       </div>
       <div className="rounded-[10px] bg-white px-2 pt-2 pb-2.5  shadow-md dark:border-strokedark dark:bg-boxdark  xl:pb-1">
         <div className="max-w-full overflow-x-auto">
@@ -303,4 +301,4 @@ const CategoriesAdd: React.FC = () => {
   );
 };
 
-export default CategoriesAdd;
+export default Templatedlistmain;

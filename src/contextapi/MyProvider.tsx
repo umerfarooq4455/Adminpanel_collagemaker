@@ -42,14 +42,16 @@ interface TextItem {
 }
 
 interface DetailedCategory {
-  id: number;
-  name: string;
+  is_active?: string;
+  is_featured?: string;
+  category_order?: string;
+  [key: string]: any;
 }
-
 interface Categorid {
   id: number;
   name: string;
 }
+
 
 interface ContextType {
   state: State;
@@ -72,6 +74,7 @@ interface ContextType {
   >;
   Categoryid: Categorid | null;
   setCategoryid: React.Dispatch<React.SetStateAction<Categorid | null>>;
+
 }
 
 const MyContext = createContext<ContextType | undefined>(undefined);
