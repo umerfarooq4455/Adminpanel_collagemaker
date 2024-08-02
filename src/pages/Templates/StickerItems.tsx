@@ -126,26 +126,6 @@ const StickerItems: React.FC = () => {
                       <div className="w-full sm:w-1/3 px-2">
                         <label
                           className="block mb-2 text-sm font-bold text-black dark:text-white"
-                          htmlFor={`name${index}`}
-                        >
-                          name
-                        </label>
-                        <div className="relative">
-                          <input
-                            className="block w-full  resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="text"
-                            id={`name${index}`}
-                            placeholder="name"
-                            value={item.name}
-                            onChange={(e) =>
-                              handleInputChange(e, index, 'name')
-                            }
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full sm:w-1/3 px-2">
-                        <label
-                          className="block mb-2 text-sm font-bold text-black dark:text-white"
                           htmlFor={`itemLeftMargin${index}`}
                         >
                           Item Left Margin
@@ -183,8 +163,6 @@ const StickerItems: React.FC = () => {
                           />
                         </div>
                       </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-2 md:mt-4">
                       <div className="w-full sm:w-1/3 px-2">
                         <label
                           className="block mb-2 text-sm font-bold text-black dark:text-white"
@@ -205,6 +183,8 @@ const StickerItems: React.FC = () => {
                           />
                         </div>
                       </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-2 md:mt-4">
                       <div className="w-full sm:w-1/3 px-2">
                         <label
                           className="block mb-2 text-sm font-bold text-black dark:text-white"
@@ -221,6 +201,26 @@ const StickerItems: React.FC = () => {
                             value={item.itemBottomMargin}
                             onChange={(e) =>
                               handleInputChange(e, index, 'itemBottomMargin')
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full sm:w-1/3 px-2">
+                        <label
+                          className="block mb-2 text-sm font-bold text-black dark:text-white"
+                          htmlFor={`name${index}`}
+                        >
+                          Upload Image
+                        </label>
+                        <div className="relative mt-[8px] flex items-center">
+                          <input
+                            className="block mt-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                            type="file"
+                            required
+                            id={`name${index}`}
+                            value={item.name}
+                            onChange={(e) =>
+                              handleInputChange(e, index, 'name')
                             }
                           />
                         </div>

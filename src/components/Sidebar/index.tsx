@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import logo from './logo.jpeg';
+import { VscGitPullRequestCreate } from 'react-icons/vsc';
+import { FaRegFontAwesome } from 'react-icons/fa6';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -57,7 +59,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-50 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-10 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
@@ -192,32 +194,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     'text-[#fff] dark:text-[#fff] bg-gradient-to-r from-[#4623E9] to-[#EAABF0] dark:bg-meta-4'
                   }`}
                 >
-                  <svg
-                    className="fill-current"
-                    width="18"
-                    height="19"
-                    viewBox="0 0 18 19"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clipPath="url(#clip0_130_9756)">
-                      <path
-                        d="M15.7501 0.55835H2.2501C1.29385 0.55835 0.506348 1.34585 0.506348 2.3021V15.8021C0.506348 16.7584 1.29385 17.574 2.27822 17.574H15.7782C16.7345 17.574 17.5501 16.7865 17.5501 15.8021V2.3021C17.522 1.34585 16.7063 0.55835 15.7501 0.55835ZM6.69385 10.599V6.4646H11.3063V10.5709H6.69385V10.599ZM11.3063 11.8646V16.3083H6.69385V11.8646H11.3063ZM1.77197 6.4646H5.45635V10.5709H1.77197V6.4646ZM12.572 6.4646H16.2563V10.5709H12.572V6.4646ZM2.2501 1.82397H15.7501C16.0313 1.82397 16.2563 2.04897 16.2563 2.33022V5.2271H1.77197V2.3021C1.77197 2.02085 1.96885 1.82397 2.2501 1.82397ZM1.77197 15.8021V11.8646H5.45635V16.3083H2.2501C1.96885 16.3083 1.77197 16.0834 1.77197 15.8021ZM15.7501 16.3083H12.572V11.8646H16.2563V15.8021C16.2563 16.0834 16.0313 16.3083 15.7501 16.3083Z"
-                        fill=""
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_130_9756">
-                        <rect
-                          width="18"
-                          height="18"
-                          fill="white"
-                          transform="translate(0 0.052124)"
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>
+                  <VscGitPullRequestCreate width={18} height={19} />
                   Create Templates
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/Addfont"
+                  className={`group relative flex items-center gap-2.5 rounded-[10px] px-4 py-2 font-medium   duration-300 ease-in-out hover:bg-gradient-to-r hover:from-[#4623E9]  hover:to-[#EAABF0] hover:text-[#fff] dark:hover:bg-meta-4 dark:text-[#fff] ' ${
+                    pathname.includes('Addfont') &&
+                    'text-[#fff] dark:text-[#fff] bg-gradient-to-r from-[#4623E9] to-[#EAABF0] dark:bg-meta-4'
+                  }`}
+                >
+                  <FaRegFontAwesome width={18} height={19} />
+                  Fonts List
                 </NavLink>
               </li>
             </ul>

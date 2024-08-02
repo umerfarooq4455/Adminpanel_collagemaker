@@ -12,7 +12,6 @@ interface Item {
   textColor: string;
   textSize: string;
   textAlignment: string;
-  fontID: string;
   letterSpacing: string;
 }
 
@@ -31,6 +30,19 @@ const TextItems: React.FC = () => {
     setActiveItems((prevIndex) => (prevIndex === index ? null : index));
   };
 
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+    field: keyof Item
+  ) => {
+    const { value } = e.target;
+    const newItems = [...textsitems];
+    newItems[index][field] = value;
+    setTextsitems(newItems);
+  };
+
+
   const addItem = () => {
     setTextsitems([
       ...textsitems,
@@ -45,7 +57,6 @@ const TextItems: React.FC = () => {
         textColor: '',
         textSize: '',
         textAlignment: '',
-        fontID: '',
         letterSpacing: '',
       },
     ]);
@@ -53,17 +64,6 @@ const TextItems: React.FC = () => {
 
   const deleteItem = (index: number) => {
     const newItems = textsitems.filter((_, i) => i !== index);
-    setTextsitems(newItems);
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
-    field: keyof Item
-  ) => {
-    const { value } = e.target;
-    const newItems = [...textsitems];
-    newItems[index][field] = value;
     setTextsitems(newItems);
   };
 
@@ -259,26 +259,6 @@ const TextItems: React.FC = () => {
                       <div className="w-full sm:w-1/3 px-2">
                         <label
                           className="block mb-2 text-sm font-bold text-black dark:text-white"
-                          htmlFor={`fontUrl${index}`}
-                        >
-                          Font Url
-                        </label>
-                        <div className="relative">
-                          <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="url"
-                            id={`fontUrl${index}`}
-                            placeholder="Font Url"
-                            value={item.fontUrl}
-                            onChange={(e) =>
-                              handleInputChange(e, index, 'fontUrl')
-                            }
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full sm:w-1/3 px-2">
-                        <label
-                          className="block mb-2 text-sm font-bold text-black dark:text-white"
                           htmlFor={`textColor${index}`}
                         >
                           Text Color
@@ -316,8 +296,6 @@ const TextItems: React.FC = () => {
                           />
                         </div>
                       </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-2 md:mt-4">
                       <div className="w-full sm:w-1/3 px-2">
                         <label
                           className="block mb-2 text-sm font-bold text-black dark:text-white"
@@ -338,26 +316,8 @@ const TextItems: React.FC = () => {
                           />
                         </div>
                       </div>
-                      <div className="w-full sm:w-1/3 px-2">
-                        <label
-                          className="block mb-2 text-sm font-bold text-black dark:text-white"
-                          htmlFor={`fontID${index}`}
-                        >
-                          Font ID
-                        </label>
-                        <div className="relative">
-                          <input
-                            className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="text"
-                            id={`fontID${index}`}
-                            placeholder="Font ID"
-                            value={item.fontID}
-                            onChange={(e) =>
-                              handleInputChange(e, index, 'fontID')
-                            }
-                          />
-                        </div>
-                      </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-2 md:mt-4">
                       <div className="w-full sm:w-1/3 px-2">
                         <label
                           className="block mb-2 text-sm font-bold text-black dark:text-white"
@@ -374,6 +334,26 @@ const TextItems: React.FC = () => {
                             value={item.letterSpacing}
                             onChange={(e) =>
                               handleInputChange(e, index, 'letterSpacing')
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full sm:w-1/3 px-2">
+                        <label
+                          className="block mb-2 text-sm font-bold text-black dark:text-white"
+                          htmlFor={`name${index}`}
+                        >
+                          Upload Image
+                        </label>
+                        <div className="relative mt-[8px] flex items-center">
+                          <input
+                            className="block mt-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                            type="file"
+                            required
+                            id={`fontUrl${index}`}
+                            value={item.fontUrl}
+                            onChange={(e) =>
+                              handleInputChange(e, index, 'fontUrl')
                             }
                           />
                         </div>

@@ -15,13 +15,14 @@ interface Item {
 const ImageItems: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeItems, setActiveItems] = useState<number | null>(null);
-  const { Imagesitems, setImagesitems } = useMyContext();
+  const { Imagesitem, setImagesitem } = useMyContext();
 
-  console.log('Image Items', Imagesitems);
+  console.log('Image Items', Imagesitem);
 
   const toggleAccordion = (index: number): void => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
+
   const toggleActiveItems = (index: number): void => {
     setActiveItems((prevIndex) => (prevIndex === index ? null : index));
   };
@@ -30,13 +31,13 @@ const ImageItems: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const newItems = [...Imagesitems];
+    const newItems = [...Imagesitem];
     if (event.target.files && event.target.files.length > 0) {
       newItems[index].mask = event.target.files[0].name;
     } else {
       newItems[index].mask = '';
     }
-    setImagesitems(newItems);
+    setImagesitem(newItems);
   };
 
   const handleInputChange = (
@@ -44,14 +45,14 @@ const ImageItems: React.FC = () => {
     index: number,
     field: keyof Item
   ) => {
-    const newItems = [...Imagesitems];
+    const newItems = [...Imagesitem];
     newItems[index][field] = event.target.value;
-    setImagesitems(newItems);
+    setImagesitem(newItems);
   };
 
   const addItem = () => {
-    setImagesitems([
-      ...Imagesitems,
+    setImagesitem([
+      ...Imagesitem,
       {
         itemWidth: '',
         itemHeight: '',
@@ -66,18 +67,18 @@ const ImageItems: React.FC = () => {
   };
 
   const deleteItem = (index: number) => {
-    const newItems = Imagesitems.filter((_, i) => i !== index);
-    setImagesitems(newItems);
+    const newItems = Imagesitem.filter((_, i) => i !== index);
+    setImagesitem(newItems);
   };
 
   return (
     <div className="space-y-2">
-      <div className="rounded-[10px] bg-[#F4F5F6] font-bold  border-gray-300 dark:border-meta-4 dark:bg-meta-4   px-5 font-dm text-[16px]  dark:text-[#fff]">
+      <div className="rounded-[10px] bg-[#F4F5F6] font-bold border-gray-300 dark:border-meta-4 dark:bg-meta-4 px-5 font-dm text-[16px] dark:text-[#fff]">
         <div
           className="flex h-[50px] cursor-pointer items-center justify-between"
           onClick={() => toggleAccordion(0)}
         >
-          <span className=" md:text-[17.5px]  font-semibold text-black dark:text-white">
+          <span className="md:text-[17.5px] font-semibold text-black dark:text-white">
             Image Items
           </span>
           <svg
@@ -101,10 +102,10 @@ const ImageItems: React.FC = () => {
 
         {activeIndex === 0 && (
           <div className="mt-4">
-            {Imagesitems.map((item, index) => (
+            {Imagesitem.map((item, index) => (
               <div
                 key={index}
-                className="rounded-[10px]  bg-white dark:border-strokedark dark:bg-boxdark px-5 font-dm text-[16px] font-semibold  dark:text-[#fff] mb-4"
+                className="rounded-[10px] bg-white dark:border-strokedark dark:bg-boxdark px-5 font-dm text-[16px] font-semibold dark:text-[#fff] mb-4"
               >
                 <div
                   className="flex h-[48px] cursor-pointer items-center justify-between"
@@ -145,7 +146,7 @@ const ImageItems: React.FC = () => {
                         <div className="relative">
                           <input
                             className="block w-full px-3 py-2.5 resize-none rounded-[10px] border border-[#B8BAC7] bg-white text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="number"
+                            type="text"
                             id={`itemWidth${index}`}
                             placeholder="Item Width"
                             value={item.itemWidth}
@@ -165,7 +166,7 @@ const ImageItems: React.FC = () => {
                         <div className="relative">
                           <input
                             className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="number"
+                            type="text"
                             id={`itemHeight${index}`}
                             placeholder="Item Height"
                             value={item.itemHeight}
@@ -185,7 +186,7 @@ const ImageItems: React.FC = () => {
                         <div className="relative">
                           <input
                             className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="number"
+                            type="text"
                             id={`itemLeftMargin${index}`}
                             placeholder="Item Left Margin"
                             value={item.itemLeftMargin}
@@ -207,7 +208,7 @@ const ImageItems: React.FC = () => {
                         <div className="relative">
                           <input
                             className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="number"
+                            type="text"
                             id={`itemTopMargin${index}`}
                             placeholder="Item Top Margin"
                             value={item.itemTopMargin}
@@ -227,7 +228,7 @@ const ImageItems: React.FC = () => {
                         <div className="relative">
                           <input
                             className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="number"
+                            type="text"
                             id={`itemRightMargin${index}`}
                             placeholder="Item Right Margin"
                             value={item.itemRightMargin}
@@ -247,7 +248,7 @@ const ImageItems: React.FC = () => {
                         <div className="relative">
                           <input
                             className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="number"
+                            type="text"
                             id={`itemBottomMargin${index}`}
                             placeholder="Item Bottom Margin"
                             value={item.itemBottomMargin}
@@ -269,7 +270,7 @@ const ImageItems: React.FC = () => {
                         <div className="relative">
                           <input
                             className="block w-full resize-none rounded-[10px] border border-[#B8BAC7] bg-white px-3 py-2.5 text-[16px] font-normal text-[#1B254B] dark:border-meta-4 dark:bg-meta-4 dark:text-white dark:placeholder-[#fff]"
-                            type="number"
+                            type="text"
                             id={`rotated${index}`}
                             placeholder="Rotated"
                             value={item.rotated}
@@ -288,27 +289,17 @@ const ImageItems: React.FC = () => {
                         </label>
                         <div className="relative mt-[8px] flex items-center">
                           <input
-                            className="hidden"
-                            id={`mask${index}`}
+                            className="block mt-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                             type="file"
+                            required
+                            id={`mask${index}`}
                             onChange={(e) => handleFileChange(e, index)}
                           />
-                          <label
-                            htmlFor={`mask${index}`}
-                            className="custom-file-label w-full flex justify-between text-[#B8BAC7] border-[#B8BAC7] border-2 border-dashed h-[46px] items-center  px-2 rounded-[10px]"
-                          >
-                            Choose File
-                            <span className="ml-2">
-                              <p className="file-name mt-1 ml-2 text-sm text-gray-900 dark:text-gray-300">
-                                {item.mask}
-                              </p>
-                            </span>
-                          </label>
                         </div>
                       </div>
                       <div className="w-full flex justify-end items-end sm:w-1/3 px-2">
                         <button
-                          className="rounded-[10px]  bg-red-500 text-white px-4 py-2 mt-[3px]"
+                          className="rounded-[10px] bg-red-500 text-white px-4 py-2 mt-[3px]"
                           onClick={() => deleteItem(index)}
                         >
                           Delete

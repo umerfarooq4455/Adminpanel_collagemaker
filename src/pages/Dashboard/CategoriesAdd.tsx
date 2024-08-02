@@ -5,8 +5,7 @@ import { useMyContext } from '../../contextapi/MyProvider';
 import toast, { Toaster } from 'react-hot-toast';
 
 const CategoriesAdd: React.FC = () => {
-  const { instance, setDetailedCategory, setCategoryid } =
-    useMyContext();
+  const { instance, setDetailedCategory, setCategoryid } = useMyContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [categories, setCategories] = useState<any | null>([]);
@@ -73,7 +72,8 @@ const CategoriesAdd: React.FC = () => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="mb-3 mt-8">
+
+      <div className="px-1 py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
         <AddCategoryModal isOpen={isModalOpen} onClose={closeModal} />
         <button
           type="button"
@@ -122,14 +122,14 @@ const CategoriesAdd: React.FC = () => {
                     <input
                       type="search"
                       id="default-search"
-                      className="block w-full p-3 ps-10 text-sm text-gray-900 h-[38px] md:w-[216px] dark:bg-meta-4  rounded-[10px] bg-[#F9FBFF]  dark:text-white "
+                      className="block w-full p-3 ps-10 text-sm text-gray-900 h-[40px] md:w-[216px] dark:bg-meta-4  rounded-[10px] bg-[#F9FBFF]  dark:text-white "
                       placeholder="Search"
                       required
                     />
                   </div>
                 </form>
               </div>
-              <div className="relative inline-block text-left">
+              {/* <div className="relative inline-block text-left">
                 <button className="inline-flex justify-center items-center w-full px-4 h-[38px]  py-2 text-sm  dark:bg-meta-4 bg-[#F9FBFF]  rounded-[10px]">
                   <svg
                     className="w-4 h-4 mr-2"
@@ -154,7 +154,7 @@ const CategoriesAdd: React.FC = () => {
                   </svg>
                   Sort
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
           {loading ? (

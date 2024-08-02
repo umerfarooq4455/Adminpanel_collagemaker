@@ -9,6 +9,7 @@ import './index.css';
 import { useMyContext } from './contextapi/MyProvider';
 import Templatesmain from './pages/Templates/Templatesmain';
 import Templatedlistmain from './pages/Templatelist/Templatedlistmain';
+import Addfont from './pages/Addfont/Addfont';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -48,6 +49,10 @@ function App() {
                   <Route
                     path="/templatedlist"
                     element={<Templatedlistmain />}
+                  />
+                    <Route
+                    path="/Addfont"
+                    element={<Addfont />}
                   />
                 </Routes>
               </DefaultLayout>

@@ -37,7 +37,6 @@ interface TextItem {
   textColor: string;
   textSize: string;
   textAlignment: string;
-  fontID: string;
   letterSpacing: string;
 }
 
@@ -52,6 +51,10 @@ interface Categorid {
   name: string;
 }
 
+interface Validinput {
+  id: number;
+  name: boolean;
+}
 
 interface ContextType {
   state: State;
@@ -65,8 +68,8 @@ interface ContextType {
   setTextsitems: React.Dispatch<React.SetStateAction<TextItem[]>>;
   stickersitems: StikerItem[];
   setStickersitems: React.Dispatch<React.SetStateAction<StikerItem[]>>;
-  Imagesitems: ImageItem[];
-  setImagesitems: React.Dispatch<React.SetStateAction<ImageItem[]>>;
+  Imagesitem: ImageItem[];
+  setImagesitem: React.Dispatch<React.SetStateAction<ImageItem[]>>;
   instance: Axios;
   detailedCategory: DetailedCategory | null;
   setDetailedCategory: React.Dispatch<
@@ -74,7 +77,8 @@ interface ContextType {
   >;
   Categoryid: Categorid | null;
   setCategoryid: React.Dispatch<React.SetStateAction<Categorid | null>>;
-
+  isValid: Validinput | boolean;
+  setIsValid: React.Dispatch<React.SetStateAction<Validinput | boolean>>;
 }
 
 const MyContext = createContext<ContextType | undefined>(undefined);
@@ -136,7 +140,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       itemBottomMargin: '',
       rotated: '',
       textAlignment: '',
-      fontID: '',
       fontUrl: '',
       textColor: '',
       textSize: '',
@@ -155,7 +158,7 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     },
   ]);
 
-  const [Imagesitems, setImagesitems] = useState<ImageItem[]>([
+  const [Imagesitem, setImagesitem] = useState<ImageItem[]>([
     {
       itemWidth: '',
       itemHeight: '',
@@ -168,11 +171,15 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     },
   ]);
 
+  const [isValid, setIsValid] = useState<Validinput | boolean>(false);
+
   return (
     <MyContext.Provider
       value={{
         state,
         Categoryid,
+        isValid,
+        setIsValid,
         setCategoryid,
         detailedCategory,
         setDetailedCategory,
@@ -187,8 +194,8 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setTextsitems,
         stickersitems,
         setStickersitems,
-        Imagesitems,
-        setImagesitems,
+        Imagesitem,
+        setImagesitem,
       }}
     >
       {children}

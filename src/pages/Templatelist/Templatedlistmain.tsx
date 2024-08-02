@@ -73,7 +73,8 @@ const Templatedlistmain: React.FC = () => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="mb-3 mt-8">
+
+      <div className=" py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
         <NavLink
           className="inline-flex items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0]  py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
           to="/templates"
@@ -81,6 +82,7 @@ const Templatedlistmain: React.FC = () => {
           Add Categories
         </NavLink>
       </div>
+
       <div className="rounded-[10px] bg-white px-2 pt-2 pb-2.5  shadow-md dark:border-strokedark dark:bg-boxdark  xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           <div className="flex justify-between items-center flex-col md:flex-row">
@@ -120,14 +122,14 @@ const Templatedlistmain: React.FC = () => {
                     <input
                       type="search"
                       id="default-search"
-                      className="block w-full p-3 ps-10 text-sm text-gray-900 h-[38px] md:w-[216px] dark:bg-meta-4  rounded-[10px] bg-[#F9FBFF]  dark:text-white "
+                      className="block w-full p-3 ps-10 text-sm text-gray-900 h-[40px] md:w-[216px] dark:bg-meta-4  rounded-[10px] bg-[#F9FBFF]  dark:text-white "
                       placeholder="Search"
                       required
                     />
                   </div>
                 </form>
               </div>
-              <div className="relative inline-block text-left">
+              {/* <div className="relative inline-block text-left">
                 <button className="inline-flex justify-center items-center w-full px-4 h-[38px]  py-2 text-sm  dark:bg-meta-4 bg-[#F9FBFF]  rounded-[10px]">
                   <svg
                     className="w-4 h-4 mr-2"
@@ -152,7 +154,7 @@ const Templatedlistmain: React.FC = () => {
                   </svg>
                   Sort
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
           {loading ? (
