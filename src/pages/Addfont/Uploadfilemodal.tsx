@@ -77,21 +77,17 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
     formData.append('file', selectedFile);
 
     try {
-      const response = await instance.post(
-        'https://3fbc37d91cb24b318b2b3be199b42175.api.mockbin.io/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
+      const response = await instance.post('/file/upload/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       if (response.status === 200) {
         toast.success('File uploaded successfully');
         setTimeout(() => {
           onClose();
-        }, 2000);
+        }, 1000);
       } else {
         toast.error('File upload failed');
       }
@@ -100,6 +96,7 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
     } finally {
       setIsLoading(false); // Ensure loading animation stops
       setFileUploadInitiated(false); // Reset file upload status
+      setSelectedFile(null); // Clear the selected file
     }
   };
 
@@ -136,11 +133,22 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
             </div>
           </div>
 
-          <div className="border-2 border-[#B8BAC7] border-dashed h-[127px] px-3 mx-2 rounded-[10px] flex justify-center items-center">
+          <div className="border-2 border-[#B8BAC7] border-dashed h-[155px] my-4 px-3 mx-2 rounded-[10px] flex justify-center items-center">
             {isLoading ? (
-              <span className="animate-bounce flex justify-center items-center p-2 w-12 h-12 shadow-md rounded-full text-blue-500">
-                <BsArrowDown width={15} height={15} />
-              </span>
+              <div className="flex flex-col justify-center items-center">
+                <span className="animate-bounce flex justify-center items-center p-2 w-12 h-12 shadow-md rounded-full text-blue-500">
+                  <BsArrowDown width={15} height={15} />
+                </span>
+                <span className="mt-2 text-[#000] dark:text-[#fff] text-[10px] font-bold">
+                  Uploading...
+                </span>
+              </div>
+            ) : fileUploadInitiated ? (
+              <div className="flex flex-col justify-center items-center">
+                <span className="text-[#B8BAC7] border-[1px] border-dashed border-[#B8BAC7] rounded-[10px] p-2 dark:text-[#fff] text-[22px] font-bold">
+                  File selected
+                </span>
+              </div>
             ) : (
               <div className="flex flex-col">
                 <label className="inline-flex p-2 items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0] text-center font-medium text-white hover:bg-opacity-90 cursor-pointer">
@@ -159,13 +167,15 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
           </div>
 
           <div className="pt-5 mx-2">
-            <button
-              onClick={handleFileUpload}
-              disabled={!fileUploadInitiated || isLoading}
-              className="inline-flex px-3 py-2 items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0] text-center font-medium text-white hover:bg-opacity-90"
-            >
-              Save File
-            </button>
+            {fileUploadInitiated && !isLoading ? (
+              <button
+                onClick={handleFileUpload}
+                disabled={isLoading}
+                className="inline-flex px-3 py-2 items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0] text-center font-medium text-white hover:bg-opacity-90"
+              >
+                Save File
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
@@ -174,3 +184,4 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
 };
 
 export default Uploadfilemodal;
+ 

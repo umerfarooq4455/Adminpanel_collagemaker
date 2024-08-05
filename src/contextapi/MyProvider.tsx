@@ -100,7 +100,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const instance = axios.create({
     baseURL: 'https://collage-maker.trippleapps.com',
-    timeout: 1000,
     headers: {
       'Content-Type': 'application/json',
       // Add other headers if needed
