@@ -39,6 +39,39 @@ const StickerItems: React.FC = () => {
     setStickersitems(newItems);
   };
 
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch(
+          'https://collage-maker.trippleapps.com/file/upload/',
+          {
+            method: 'POST',
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          const fileUrl = data.results.file_path;
+
+          const newItems = [...stickersitems];
+          newItems[index].name = fileUrl; // Assign the file URL to the name property
+          setStickersitems(newItems);
+        } else {
+          console.error('File upload failed with status:', response.status);
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    }
+  };
   const addItem = () => {
     setStickersitems([
       ...stickersitems,
@@ -218,10 +251,7 @@ const StickerItems: React.FC = () => {
                             type="file"
                             required
                             id={`name${index}`}
-                            value={item.name}
-                            onChange={(e) =>
-                              handleInputChange(e, index, 'name')
-                            }
+                            onChange={(e) => handleFileChange(e, index)}
                           />
                         </div>
                       </div>

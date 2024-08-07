@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import Uploadfilemodal from './Uploadfilemodal';
+import { TbTrash } from 'react-icons/tb';
+import { useMyContext } from '../../contextapi/MyProvider';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Addfont: React.FC = () => {
+  const { instance } = useMyContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [fontlist, setFontlist] = useState([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -11,8 +19,37 @@ const Addfont: React.FC = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  useEffect(() => {
+    fontGetlist();
+  }, []);
+
+  const fontGetlist = async () => {
+    try {
+      const response = await instance.get('/font/list');
+      setFontlist(response.data.results);
+    } catch (err) {
+      setError('Failed to fetch Fonts');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const DeleteFont = async (id: number) => {
+    try {
+      const response = await instance.delete(`/font/delete/${id}`);
+      console.log(response);
+      toast.success('Font Deleted Successfully');
+      fontGetlist();
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="py-5 flex justify-between items-center  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
         <Uploadfilemodal isOpen={isModalOpen} onClose={closeModal} />
         <div className="flex justify-center items-center">
@@ -71,38 +108,53 @@ const Addfont: React.FC = () => {
             </form>
           </div>
         </div>
-
-        <div className="min-h-[158px] bg-[#fff] rounded-[10px]  dark:bg-[#24303F]  py-4 px-4">
-          <div className="flex mb-4 mt-4 font-medium text-[#000] dark:text-white">
-            {/* <span>No :</span>
-          <span className="mr-2 ml-1 pr-2 border-r-2">1</span> */}
-            <span className="font-bold text-[#000] dark:text-white">
-              Roboto
-            </span>
+        {loading ? (
+          <div className="flex mx-2 py-3 items-center">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-solid border-[#4623E9] border-t-transparent"></div>
           </div>
-          <div className="flex py-3">
-            {/* Text for small screens */}
-            <span className="text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms] block sm:hidden">
-              Everyone has the right...
-            </span>
-            {/* Accordion for medium screens */}
-            <div className="hidden sm:block lg:hidden w-full">
-              <details className="group">
-                <summary className="cursor-pointer text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
-                  Everyone has the right to freedom of thought...
-                </summary>
-                <p className="text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
-                  Everyone has the right to freedom of thought...
-                </p>
-              </details>
-            </div>
-            {/* Full text for large screens */}
-            <span className="hidden lg:block text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
-              Everyone has the right to freedom of thought, conscience and
-              religion; this right includes
-            </span>
-          </div>
-        </div>
+        ) : error ? (
+          <p className="mx-2 py-3 text-red-500 dark:text-red-500">{error}</p>
+        ) : (
+          <>
+            {fontlist.map((itmes: any) => (
+              <div className="min-h-[158px] bg-[#fff] mb-4 rounded-[10px]  dark:bg-[#24303F]  py-4 px-4">
+                <div className="flex mb-4 mt-4 font-medium justify-between text-[#000] dark:text-white">
+                  <span className="font-bold text-[#000] dark:text-white">
+                    {itmes.fontName}
+                  </span>
+                  <button
+                    className="hover:text-[#4623E9]"
+                    onClick={() => DeleteFont(itmes.fontId)}
+                  >
+                    <TbTrash className="text-[25px] text-[#000] dark:text-[#fff]" />
+                  </button>
+                </div>
+                <div className="flex py-3">
+                  {/* Text for small screens */}
+                  <span className="text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms] block sm:hidden">
+                    Everyone has the right...
+                  </span>
+                  {/* Accordion for medium screens */}
+                  <div className="hidden sm:block lg:hidden w-full">
+                    <details className="group">
+                      <summary className="cursor-pointer text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
+                        Everyone has the right to freedom of thought...
+                      </summary>
+                      <p className="text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
+                        Everyone has the right to freedom of thought...
+                      </p>
+                    </details>
+                  </div>
+                  {/* Full text for large screens */}
+                  <span className="hidden lg:block text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
+                    Everyone has the right to freedom of thought, conscience and
+                    religion; this right includes
+                  </span>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );

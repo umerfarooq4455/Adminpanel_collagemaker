@@ -27,13 +27,40 @@ const ImageItems: React.FC = () => {
     setActiveItems((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const handleFileChange = (
+  const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const newItems = [...Imagesitem];
     if (event.target.files && event.target.files.length > 0) {
-      newItems[index].mask = event.target.files[0].name;
+      const file = event.target.files[0];
+
+      // Create a FormData object to send the file
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        // Make the API request to upload the file
+        const response = await fetch(
+          'https://collage-maker.trippleapps.com/file/upload/',
+          {
+            method: 'POST',
+            body: formData,
+          }
+        );
+
+        // Check if the request was successful
+        if (!response.ok) {
+          throw new Error('File upload failed');
+        }
+
+        const data = await response.json();
+        const fileUrl = data.results.file_path;
+        newItems[index].mask = fileUrl;
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        // Handle the error (you might want to show a message to the user)
+      }
     } else {
       newItems[index].mask = '';
     }

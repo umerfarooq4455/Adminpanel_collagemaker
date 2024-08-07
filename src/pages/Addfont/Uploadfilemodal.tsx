@@ -77,7 +77,7 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
     formData.append('file', selectedFile);
 
     try {
-      const response = await instance.post('/file/upload/', formData, {
+      const response = await instance.post('/font/create/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -184,4 +184,3 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
 };
 
 export default Uploadfilemodal;
- 

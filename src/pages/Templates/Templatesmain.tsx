@@ -8,9 +8,6 @@ import { useMyContext } from '../../contextapi/MyProvider';
 const Templatesmain: React.FC = () => {
   const { instance, Imagesitem, stickersitems, textsitems } = useMyContext();
   const [categorieslist, setCategorieslist] = useState<any | null>([]);
-  const [selectedFrameFile, setSelectedFrameFile] = useState<File | null>(null);
-  const [selectedThumbnailFile, setSelectedThumbnailFile] =
-    useState<File | null>(null);
 
   const [formData, setFormData] = useState({
     catID: '',
@@ -20,8 +17,8 @@ const Templatesmain: React.FC = () => {
     isNew: '',
     imagesCount: '',
     templateBaseURL: '',
-    templateFrameURL: `${selectedFrameFile}`,
-    templateThumbnailURL: `${selectedThumbnailFile}`,
+    templateFrameURL: '',
+    templateThumbnailURL: '',
     templateSize: '',
     thumbnailWidth: '',
     thumbnailHeight: '',
@@ -29,26 +26,52 @@ const Templatesmain: React.FC = () => {
     templateHeight: '',
   });
 
-  const handleFileChange = (
+  const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
     type: string
   ) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
-      const fileURL = URL.createObjectURL(file);
 
-      if (type === 'frame') {
-        setSelectedFrameFile(file);
-        setFormData({
-          ...formData,
-          templateFrameURL: fileURL,
-        });
-      } else if (type === 'thumbnail') {
-        setSelectedThumbnailFile(file);
-        setFormData({
-          ...formData,
-          templateThumbnailURL: fileURL,
-        });
+      // Create a FormData object for file upload
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        // Upload the file to the server
+        const response = await fetch(
+          'https://collage-maker.trippleapps.com/file/upload/',
+          {
+            method: 'POST',
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.results.file_path);
+
+          const fileURL = data.results.file_path;
+
+          // Update the state with the new file URL
+          if (type === 'frame') {
+            // setSelectedFrameFile(file);
+            setFormData((prevData) => ({
+              ...prevData,
+              templateFrameURL: fileURL,
+            }));
+          } else if (type === 'thumbnail') {
+            // setSelectedThumbnailFile(file);
+            setFormData((prevData) => ({
+              ...prevData,
+              templateThumbnailURL: fileURL,
+            }));
+          }
+        } else {
+          console.error('File upload failed', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error uploading file', error);
       }
     }
   };
@@ -71,7 +94,7 @@ const Templatesmain: React.FC = () => {
       thumbnailHeight: parseInt(formData.thumbnailHeight) || '',
       templateWidth: parseInt(formData.templateWidth) || '',
       templateHeight: parseInt(formData.templateHeight) || '',
-      imagesitems: Imagesitem,
+      imageItems: Imagesitem,
       textItems: textsitems,
       stickerItems: stickersitems,
     };
@@ -120,6 +143,7 @@ const Templatesmain: React.FC = () => {
   const handleChange = (event: any) => {
     setFormData({ ...formData, catID: event.target.value });
   };
+
   return (
     <>
       <div className=" py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">

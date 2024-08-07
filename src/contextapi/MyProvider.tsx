@@ -79,6 +79,8 @@ interface ContextType {
   setCategoryid: React.Dispatch<React.SetStateAction<Categorid | null>>;
   isValid: Validinput | boolean;
   setIsValid: React.Dispatch<React.SetStateAction<Validinput | boolean>>;
+  isDarkMode: boolean;
+  setIsDarkMode: (value: boolean) => void;
 }
 
 const MyContext = createContext<ContextType | undefined>(undefined);
@@ -171,11 +173,13 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   ]);
 
   const [isValid, setIsValid] = useState<Validinput | boolean>(false);
-
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   return (
     <MyContext.Provider
       value={{
         state,
+        isDarkMode,
+        setIsDarkMode,
         Categoryid,
         isValid,
         setIsValid,

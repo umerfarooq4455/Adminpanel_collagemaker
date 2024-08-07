@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ukflag from './falgicon/united-kingdom.png';
 import German from './falgicon/circle.png';
 import china from './falgicon/china.png';
@@ -28,11 +28,13 @@ import toast, { Toaster } from 'react-hot-toast';
 interface AddCategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
+  fetchCategoriess: any;
 }
 
 const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
   isOpen,
   onClose,
+  fetchCategoriess,
 }) => {
   if (!isOpen) return null;
   const { instance } = useMyContext();
@@ -49,6 +51,9 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
     setIsorder(false);
   };
 
+  useEffect(() => {
+    fetchCategoriess();
+  }, []);
   const options = [
     { value: 'en', label: <img src={ukflag} width="24" alt="UK Flag" /> },
     { value: 'de', label: <img src={German} width="24" alt="German Flag" /> },
@@ -134,6 +139,7 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
       const response = await instance.post('/category/addedit', payload);
       console.log('Category added successfully:', response.data);
       toast.success('Category added successfully!');
+      fetchCategoriess();
       onClose();
     } catch (error) {
       console.error('Error adding category:', error);

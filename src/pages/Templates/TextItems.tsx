@@ -30,7 +30,6 @@ const TextItems: React.FC = () => {
     setActiveItems((prevIndex) => (prevIndex === index ? null : index));
   };
 
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
@@ -42,7 +41,39 @@ const TextItems: React.FC = () => {
     setTextsitems(newItems);
   };
 
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
 
+      try {
+        const response = await fetch(
+          'https://collage-maker.trippleapps.com/file/upload/',
+          {
+            method: 'POST',
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          const fileUrl = data.results.file_path;
+
+          const newItems = [...textsitems];
+          newItems[index].fontUrl = fileUrl; // Assign the file URL to the name property
+          setTextsitems(newItems);
+        } else {
+          console.error('File upload failed with status:', response.status);
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    }
+  };
   const addItem = () => {
     setTextsitems([
       ...textsitems,
@@ -351,10 +382,7 @@ const TextItems: React.FC = () => {
                             type="file"
                             required
                             id={`fontUrl${index}`}
-                            value={item.fontUrl}
-                            onChange={(e) =>
-                              handleInputChange(e, index, 'fontUrl')
-                            }
+                            onChange={(e) => handleFileChange(e, index)}
                           />
                         </div>
                       </div>
