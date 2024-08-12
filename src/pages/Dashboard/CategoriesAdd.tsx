@@ -58,7 +58,7 @@ const CategoriesAdd: React.FC = () => {
       setLoading(false);
     }
   };
-  
+
   const DeleteCategory = async (id: number) => {
     try {
       const response = await instance.delete(`/category/delete/${id}`);
@@ -77,7 +77,11 @@ const CategoriesAdd: React.FC = () => {
       <Toaster position="top-center" reverseOrder={false} />
 
       <div className="px-1 py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
-        <AddCategoryModal isOpen={isModalOpen} onClose={closeModal} fetchCategoriess={fetchCategories} />
+        <AddCategoryModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          fetchCategoriess={fetchCategories}
+        />
         <button
           type="button"
           onClick={openModal}

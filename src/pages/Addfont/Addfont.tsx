@@ -5,10 +5,16 @@ import { TbTrash } from 'react-icons/tb';
 import { useMyContext } from '../../contextapi/MyProvider';
 import toast, { Toaster } from 'react-hot-toast';
 
+interface Font {
+  fontId: number;
+  fontName: string;
+  fontUrl: string;
+}
+
 const Addfont: React.FC = () => {
   const { instance } = useMyContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [fontlist, setFontlist] = useState([]);
+  const [fontlist, setFontlist] = useState<Font[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -19,14 +25,36 @@ const Addfont: React.FC = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   useEffect(() => {
     fontGetlist();
   }, []);
 
+  const loadFont = (fontName: string, fontUrl: string): void => {
+    const newFont = new FontFace(
+      fontName,
+      `https://collage-maker.trippleapps.com(${fontUrl})`
+    );
+    console.log('newFont', newFont);
+    newFont
+      .load()
+      .then((loadedFont) => {
+        document.fonts.add(loadedFont);
+      })
+      .catch((error) => {
+        console.error('Failed to load font:', error);
+      });
+  };
+
   const fontGetlist = async () => {
     try {
-      const response = await instance.get('/font/list');
-      setFontlist(response.data.results);
+      const response = await instance.get<{ results: Font[] }>('/font/list');
+      const fonts = response.data.results;
+      fonts.forEach((font) => {
+        loadFont(font.fontName, font.fontUrl);
+      });
+
+      setFontlist(fonts);
     } catch (err) {
       setError('Failed to fetch Fonts');
     } finally {
@@ -51,7 +79,11 @@ const Addfont: React.FC = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="py-5 flex justify-between items-center  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
-        <Uploadfilemodal isOpen={isModalOpen} onClose={closeModal} />
+        <Uploadfilemodal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          fontGetlists={fontGetlist}
+        />
         <div className="flex justify-center items-center">
           <button
             type="button"
@@ -130,23 +162,32 @@ const Addfont: React.FC = () => {
                   </button>
                 </div>
                 <div className="flex py-3">
-                  {/* Text for small screens */}
-                  <span className="text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms] block sm:hidden">
+                  <span
+                    style={{ fontFamily: itmes.fontName }}
+                    className="text-[40px]   text-[#000] dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms] block sm:hidden"
+                  >
                     Everyone has the right...
                   </span>
-                  {/* Accordion for medium screens */}
                   <div className="hidden sm:block lg:hidden w-full">
                     <details className="group">
-                      <summary className="cursor-pointer text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
+                      <summary
+                        style={{ fontFamily: itmes.fontName }}
+                        className="cursor-pointer text-[40px] text-[#000]  dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms]"
+                      >
                         Everyone has the right to freedom of thought...
                       </summary>
-                      <p className="text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
+                      <p
+                        style={{ fontFamily: itmes.fontName }}
+                        className="text-[40px] text-[#000] dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms]"
+                      >
                         Everyone has the right to freedom of thought...
                       </p>
                     </details>
                   </div>
-                  {/* Full text for large screens */}
-                  <span className="hidden lg:block text-[40px] text-[#000] dark:text-white text-start font-normal leading-[initial] opacity-100 transition-opacity duration-[350ms]">
+                  <span
+                    style={{ fontFamily: itmes.fontName }}
+                    className="hidden lg:block text-[40px] text-[#000]  dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms]"
+                  >
                     Everyone has the right to freedom of thought, conscience and
                     religion; this right includes
                   </span>

@@ -6,11 +6,13 @@ import { BsArrowDown } from 'react-icons/bs';
 interface AddCategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
+  fontGetlists: any;
 }
 type Timeout = ReturnType<typeof setTimeout>;
 const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
   isOpen,
   onClose,
+  fontGetlists,
 }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -21,14 +23,14 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
 
   useEffect(() => {
     if (isLoading) {
-      // Set a timeout to stop loading after 3 seconds
       const timeout = setTimeout(() => {
         setIsLoading(false);
       }, 3000);
       setLoadingTimeout(timeout);
 
-      return () => clearTimeout(timeout); // Clear timeout if component unmounts or loading stops
+      return () => clearTimeout(timeout);
     }
+    fontGetlists();
   }, [isLoading]);
 
   if (!isOpen) return null;
@@ -49,7 +51,7 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
       }
 
       // Validate file size
-      const maxSizeInBytes = 202 * 1024;
+      const maxSizeInBytes = 500 * 1024;
       if (fileSize > maxSizeInBytes) {
         toast.error('File size exceeds 202KB');
         return;
@@ -87,6 +89,7 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
         toast.success('File uploaded successfully');
         setTimeout(() => {
           onClose();
+          fontGetlists();
         }, 1000);
       } else {
         toast.error('File upload failed');
@@ -160,7 +163,7 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
                   />
                 </label>
                 <span className="font-bold text-[#000] text-[13px] mt-2 dark:text-[#fff]">
-                  Maximum file size: 202kb
+                  Maximum file size: 500kb
                 </span>
               </div>
             )}
