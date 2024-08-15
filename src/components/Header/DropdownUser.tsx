@@ -45,7 +45,7 @@ const DropdownUser = () => {
       {/* <!-- Dropdown Start --> */}
       {dropdownOpen && (
         <div
-          className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-b-[10px] rounded-l-[10px] rounded-r-[10px] rounded-t-[0px] border border-stroke bg-white shadow-sm dark:border-strokedark dark:bg-boxdark`}
+          className={`absolute right-0 mt-4 z-30 flex w-62.5 flex-col rounded-b-[10px] rounded-l-[10px] rounded-r-[10px] rounded-t-[0px] border border-stroke bg-white shadow-sm dark:border-strokedark dark:bg-boxdark`}
         >
           <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-5 dark:border-strokedark">
             <li>

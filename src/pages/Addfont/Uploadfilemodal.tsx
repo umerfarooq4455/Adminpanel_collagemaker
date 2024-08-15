@@ -106,7 +106,7 @@ const Uploadfilemodal: React.FC<AddCategoryModalProps> = ({
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-30 flex ">
+      <div className="fixed inset-0 z-50 overflow-auto  flex  bg-[#414444] bg-opacity-50 dark:bg-[#13151E] dark:bg-opacity-30">
         <div className="relative py-4 px-2 bg-white dark:bg-boxdark w-full max-w-md m-auto flex-col flex rounded-lg">
           <div className="flex justify-between px-2 mb-3">
             <div className="flex items-center">

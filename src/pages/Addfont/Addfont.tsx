@@ -30,30 +30,10 @@ const Addfont: React.FC = () => {
     fontGetlist();
   }, []);
 
-  const loadFont = (fontName: string, fontUrl: string): void => {
-    const newFont = new FontFace(
-      fontName,
-      `https://collage-maker.trippleapps.com(${fontUrl})`
-    );
-    console.log('newFont', newFont);
-    newFont
-      .load()
-      .then((loadedFont) => {
-        document.fonts.add(loadedFont);
-      })
-      .catch((error) => {
-        console.error('Failed to load font:', error);
-      });
-  };
-
   const fontGetlist = async () => {
     try {
       const response = await instance.get<{ results: Font[] }>('/font/list');
       const fonts = response.data.results;
-      fonts.forEach((font) => {
-        loadFont(font.fontName, font.fontUrl);
-      });
-
       setFontlist(fonts);
     } catch (err) {
       setError('Failed to fetch Fonts');
@@ -78,12 +58,12 @@ const Addfont: React.FC = () => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="py-5 flex justify-between items-center  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
-        <Uploadfilemodal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          fontGetlists={fontGetlist}
-        />
+      <Uploadfilemodal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        fontGetlists={fontGetlist}
+      />
+      <div className="py-5 flex justify-between items-center  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] -z-20 lg:z-9 border-none">
         <div className="flex justify-center items-center">
           <button
             type="button"
@@ -148,8 +128,11 @@ const Addfont: React.FC = () => {
           <p className="mx-2 py-3 text-red-500 dark:text-red-500">{error}</p>
         ) : (
           <>
-            {fontlist.map((itmes: any) => (
-              <div className="min-h-[158px] bg-[#fff] mb-4 rounded-[10px]  dark:bg-[#24303F]  py-4 px-4">
+            {fontlist.map((itmes: Font) => (
+              <div
+                key={itmes.fontId}
+                className="min-h-[158px] bg-[#fff] mb-4 rounded-[10px] dark:bg-[#24303F] py-4 px-4"
+              >
                 <div className="flex mb-4 mt-4 font-medium justify-between text-[#000] dark:text-white">
                   <span className="font-bold text-[#000] dark:text-white">
                     {itmes.fontName}
@@ -164,7 +147,7 @@ const Addfont: React.FC = () => {
                 <div className="flex py-3">
                   <span
                     style={{ fontFamily: itmes.fontName }}
-                    className="text-[40px]   text-[#000] dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms] block sm:hidden"
+                    className="text-[40px] text-[#000] dark:text-white text-start leading-[initial] opacity-100 transition-opacity duration-[350ms] block sm:hidden"
                   >
                     Everyone has the right...
                   </span>
@@ -172,13 +155,13 @@ const Addfont: React.FC = () => {
                     <details className="group">
                       <summary
                         style={{ fontFamily: itmes.fontName }}
-                        className="cursor-pointer text-[40px] text-[#000]  dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms]"
+                        className="cursor-pointer text-[40px] text-[#000] dark:text-white text-start leading-[initial] opacity-100 transition-opacity duration-[350ms]"
                       >
                         Everyone has the right to freedom of thought...
                       </summary>
                       <p
                         style={{ fontFamily: itmes.fontName }}
-                        className="text-[40px] text-[#000] dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms]"
+                        className="text-[40px] text-[#000] dark:text-white text-start leading-[initial] opacity-100 transition-opacity duration-[350ms]"
                       >
                         Everyone has the right to freedom of thought...
                       </p>
@@ -186,7 +169,7 @@ const Addfont: React.FC = () => {
                   </div>
                   <span
                     style={{ fontFamily: itmes.fontName }}
-                    className="hidden lg:block text-[40px] text-[#000]  dark:text-white text-start  leading-[initial] opacity-100 transition-opacity duration-[350ms]"
+                    className="hidden lg:block text-[40px] text-[#000] dark:text-white text-start leading-[initial] opacity-100 transition-opacity duration-[350ms]"
                   >
                     Everyone has the right to freedom of thought, conscience and
                     religion; this right includes
