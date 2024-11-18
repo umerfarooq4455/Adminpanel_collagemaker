@@ -50,10 +50,7 @@ function App() {
                     path="/templatedlist"
                     element={<Templatedlistmain />}
                   />
-                    <Route
-                    path="/Addfont"
-                    element={<Addfont />}
-                  />
+                  <Route path="/Addfont" element={<Addfont />} />
                 </Routes>
               </DefaultLayout>
             ) : (

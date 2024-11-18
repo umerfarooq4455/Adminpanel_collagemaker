@@ -61,7 +61,7 @@ const Templatedlistmain: React.FC = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className=" py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
+      <div className=" py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] border-none">
         <NavLink
           className="inline-flex items-center justify-center rounded-[10px] bg-gradient-to-r from-[#4623E9] to-[#EAABF0]  py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
           to="/templates"
@@ -220,7 +220,7 @@ const Templatedlistmain: React.FC = () => {
                           className="hover:text-[#4623E9] "
                           onClick={() => DeleteCategory(catItem.templateID)}
                         >
-                           <TbTrash className="text-[25px] text-[#000] dark:text-[#fff]" />
+                          <TbTrash className="text-[25px] text-[#000] dark:text-[#fff]" />
                         </button>
                         {/* edit  list item button using there id */}
                       </div>

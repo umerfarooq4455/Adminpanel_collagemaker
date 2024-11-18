@@ -146,7 +146,7 @@ const Templatesmain: React.FC = () => {
 
   return (
     <>
-      <div className=" py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
+      <div className=" py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] border-none">
         <span className=" md:text-[20px] px-2 py-4   font-semibold text-black dark:text-white">
           Create Templates
         </span>

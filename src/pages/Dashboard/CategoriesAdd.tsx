@@ -76,7 +76,7 @@ const CategoriesAdd: React.FC = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className="px-1 py-5  sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C] z-10 border-none">
+      <div className="px-1 py-5   sticky top-[85px] bg-[#F1F5F9] dark:bg-[#1A222C]  border-none">
         <AddCategoryModal
           isOpen={isModalOpen}
           onClose={closeModal}
@@ -100,7 +100,7 @@ const CategoriesAdd: React.FC = () => {
             </div>
 
             <div className="flex">
-              <div className="mr-2">
+        
                 <form className="max-w-md mx-auto">
                   <label
                     htmlFor="default-search"
@@ -135,33 +135,6 @@ const CategoriesAdd: React.FC = () => {
                     />
                   </div>
                 </form>
-              </div>
-              {/* <div className="relative inline-block text-left">
-                <button className="inline-flex justify-center items-center w-full px-4 h-[38px]  py-2 text-sm  dark:bg-meta-4 bg-[#F9FBFF]  rounded-[10px]">
-                  <svg
-                    className="w-4 h-4 mr-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16 18L16 16M16 6L20 10.125M16 6L12 10.125M16 6L16 13"
-                      stroke="#808080"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M8 18L12 13.875M8 18L4 13.875M8 18L8 11M8 6V8"
-                      stroke="#808080"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Sort
-                </button>
-              </div> */}
             </div>
           </div>
           {loading ? (
